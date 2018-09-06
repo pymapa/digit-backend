@@ -25,8 +25,8 @@ jobs:
       - run: 
           name: Run DB migrations
           command: node ./db/migrate-up.js
-      - run: sudo apt-get update
-      - run: sudo apt install -y postgresql-client || true
+      - run: apt-get update
+      - run: apt install -y postgresql-client || true
       - run: 
           name: Run tests
           command: npm test
