@@ -19,13 +19,12 @@ jobs:
           name: Install dependencies
           command: npm install
       - save_cache: 
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
       - run: 
           name: Run DB migrations
           command: node ./db/migrate-up.js
-      - run: apt install -y postgresql-client || true
       - run: 
           name: Run tests
           command: npm test
