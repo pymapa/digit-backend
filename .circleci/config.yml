@@ -21,7 +21,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: 
           name: Run DB migrations
-          command: node /db/migrate-up.js
+          command: node ./db/migrate-up.js
       - run: sudo apt-get update
       - run: sudo apt install -y postgresql-client || true
       - run: 
