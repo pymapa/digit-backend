@@ -4,7 +4,22 @@ jobs:
     working_directory: ~/tmp
     docker:
       - image: node:9.7.1-alpine
+        environment:
+          NODE_ENV: test
+      - image: circleci/postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle-test_test
     steps: 
       - checkout
-      - run: npm install
-      - run: npm test
+      - run: 
+          name: Install dependencies
+          command: npm install
+      - save_cache: 
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: sudo apt install -y postgresql-client || true
+      - run: 
+          name: Run tests
+          command: npm test
